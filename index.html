@@ -93,96 +93,84 @@ body {
 /* ════════════════════════════════════════════════
    1. 표지
 ════════════════════════════════════════════════ */
+/* 표지 A타입(클래식 그린) — 인쇄용 표지_인쇄용_A타입.html 앞표지와 동일 */
 .cover {
-  background: var(--moss);
-  color: var(--cream);
-  align-items: center;
-  justify-content: center;
+  --a-gold: #c9a55c; --a-gold-soft: rgba(201,165,92,0.55); --a-cream: #f4efe2;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 45%, rgba(58,94,60,0.55) 0%, transparent 70%),
+    linear-gradient(170deg, #22402a 0%, #1f3a24 55%, #182d1c 100%);
+  color: var(--a-cream);
   text-align: center;
   padding: 0;
 }
 
-.cover-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 20% 85%, rgba(74,107,62,0.7) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 70% at 80% 15%, rgba(46,77,48,0.9) 0%, transparent 50%),
-    linear-gradient(160deg, #1e3520 0%, #2e4d30 40%, #1a2e1c 100%);
-}
-
-.cover-leaf-l {
-  position: absolute; left: -30mm; top: -20mm;
-  width: 100mm; height: 120mm; opacity: 0.1;
-}
-.cover-leaf-r {
-  position: absolute; right: -25mm; bottom: -15mm;
-  width: 90mm; height: 110mm; opacity: 0.1;
-  transform: rotate(160deg);
-}
+/* 금색 이중 테두리 + 모서리 장식 */
+.cover-frame { position: absolute; inset: 13mm; border: 0.8pt solid var(--a-gold); }
+.cover-frame::after { content: ""; position: absolute; inset: 1.8mm; border: 0.35pt solid var(--a-gold-soft); }
+.cover-corner { position: absolute; width: 7mm; height: 7mm; }
+.cover-corner svg { width: 100%; height: 100%; display: block; }
+.cover-corner.tl { left: 15.5mm; top: 15.5mm; }
+.cover-corner.tr { right: 15.5mm; top: 15.5mm; transform: scaleX(-1); }
+.cover-corner.bl { left: 15.5mm; bottom: 15.5mm; transform: scaleY(-1); }
+.cover-corner.br { right: 15.5mm; bottom: 15.5mm; transform: scale(-1,-1); }
 
 .cover-content {
   position: relative; z-index: 2;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 0;
+  display: flex; flex-direction: column; align-items: center;
+  width: 100%; height: 100%;
+  padding: 46mm 0 26mm;
 }
+.cover-sprig { width: 74mm; height: 24mm; display: block; margin-bottom: 9mm; }
+.cover-sprig.bottom { transform: scaleY(-1); width: 50mm; height: 16mm; opacity: 0.8; margin: 0 0 7mm; }
 
+/* 학교명 박스 폭 = '식물도감' 글자 폭 (박스가 제목 폭에 맞춰 늘어남) */
+.cover-head {
+  display: flex; flex-direction: column; align-items: stretch;
+}
 .cover-school {
-  font-size: 9pt; letter-spacing: 5px;
-  color: var(--mist); opacity: 0.8;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 26.5pt; font-weight: 600;
+  letter-spacing: 0.32em;
+  line-height: 1.4; white-space: nowrap;
+  color: var(--a-cream);
+  border: 0.8pt solid var(--a-gold);
+  padding: 2.6mm 0 2.6mm 0.32em;   /* 마지막 글자 뒤 자간만큼 왼쪽 보정 */
   margin-bottom: 8mm;
-  border: 0.3pt solid rgba(196,218,187,0.4);
-  padding: 2mm 6mm;
 }
-
 .cover-title-kr {
   font-family: 'Noto Serif KR', serif;
-  font-size: 36pt; font-weight: 900;
-  color: var(--cream);
-  line-height: 1.1; letter-spacing: -1px;
-  margin-bottom: 3mm;
+  font-size: 72pt; font-weight: 900;
+  color: var(--a-cream);
+  line-height: 1;
+  letter-spacing: 0.16em;
+  margin-right: -0.16em;   /* 마지막 글자 뒤 자간 보정 → 시각적 중앙 정렬 */
+  margin-bottom: 7mm;
+  text-shadow: 0 0.8mm 3mm rgba(0,0,0,0.3);
 }
-
 .cover-title-en {
   font-family: 'Playfair Display', serif;
-  font-style: italic; font-size: 13pt;
-  color: var(--mist); letter-spacing: 3px;
-  margin-bottom: 12mm;
+  font-style: italic; font-size: 15pt;
+  color: var(--mist); letter-spacing: 0.22em;
+  margin-right: -0.22em;
 }
+.cover-rule { display: flex; align-items: center; gap: 3mm; margin-top: 11mm; }
+.cover-rule i { display: block; width: 26mm; height: 0.5pt; background: var(--a-gold-soft); }
+.cover-rule b { display: block; width: 2.2mm; height: 2.2mm; transform: rotate(45deg); border: 0.6pt solid var(--a-gold); }
 
-.cover-rule {
-  width: 30mm; height: 0.5pt;
-  background: linear-gradient(90deg, transparent, var(--sage), transparent);
-  margin-bottom: 10mm;
-}
-
-.cover-badges {
-  display: flex; gap: 6mm; margin-bottom: 18mm;
-}
-.cover-badge {
-  background: rgba(196,218,187,0.12);
-  border: 0.3pt solid rgba(196,218,187,0.35);
-  padding: 2mm 5mm;
-  font-size: 7.5pt; letter-spacing: 1.5px;
-  color: var(--mist);
-}
-
+/* 제목(구분선)과 하단 잎 장식 사이 공간의 정가운데 */
 .cover-count-wrap {
-  margin-bottom: 20mm;
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
 }
 .cover-count {
   font-family: 'Playfair Display', serif;
   font-size: 54pt; font-weight: 700;
-  color: var(--mist); line-height: 1;
-  margin-bottom: 1mm;
+  color: var(--a-gold); line-height: 1;
 }
 .cover-count-label {
-  font-size: 7pt; letter-spacing: 4px;
-  color: var(--sage);
-}
-
-.cover-bottom {
-  font-size: 8pt; letter-spacing: 2px;
-  color: rgba(196,218,187,0.6);
+  font-size: 7pt; letter-spacing: 0.4em; margin-right: -0.4em;
+  color: var(--a-gold-soft); margin-top: 2mm;
 }
 
 /* ════════════════════════════════════════════════
@@ -789,6 +777,18 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
 }
 .nav-ui button:hover { background: var(--leaf); }
 
+/* ─── 인쇄용 내지와 동일한 머릿말·개요 정렬 ─── */
+/* 머릿말: 내용 전체(제목·본문·서명)를 페이지 가로·세로 중앙에 */
+.preface { margin: auto; padding: 0; }
+/* 머릿말 각 줄 오른쪽 끝을 가장 긴 줄(=서명 오른쪽 끝)에 맞춤, 문단 마지막 줄만 왼쪽 정렬 */
+.preface-body p { text-align: justify; text-align-last: justify; }
+.preface-body p .last { display: block; text-align-last: left; }
+/* 식물도감에 대하여: 내용 전체를 세로 중앙에 (위아래 여백 동일) */
+.overview { margin: auto 0; padding: 0 18mm; }
+.overview-section:last-child { margin-bottom: 0; }
+/* 단계 카드 안에서 줄바꿈 없이 한 줄로 */
+ul.step-desc .one-line { white-space: nowrap; letter-spacing: -0.45pt; }
+
 </style>
 </head>
 <body>
@@ -797,37 +797,58 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
      페이지 1: 표지
 ══════════════════════════════════════ -->
 <div class="page cover" id="pg-cover">
-  <div class="cover-bg"></div>
+  <!-- 표지 A타입 장식 정의 -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <path id="cv-lf" d="M0 0 C5 -5.5 15 -6 24 0 C15 6 5 5.5 0 0 Z"/>
+      <g id="cv-half">
+        <path d="M3 0 Q 50 -3 104 0" fill="none" stroke="#c9a55c" stroke-width="1"/>
+        <g fill="none" stroke="#c9a55c" stroke-width="0.9">
+          <use href="#cv-lf" transform="translate(16,-0.6) rotate(-38) scale(0.95)"/>
+          <use href="#cv-lf" transform="translate(16,-0.6) rotate(38) scale(0.95)"/>
+          <use href="#cv-lf" transform="translate(36,-1.4) rotate(-34) scale(0.88)"/>
+          <use href="#cv-lf" transform="translate(36,-1.4) rotate(34) scale(0.88)"/>
+          <use href="#cv-lf" transform="translate(56,-1.8) rotate(-30) scale(0.78)"/>
+          <use href="#cv-lf" transform="translate(56,-1.8) rotate(30) scale(0.78)"/>
+          <use href="#cv-lf" transform="translate(74,-1.6) rotate(-26) scale(0.66)"/>
+          <use href="#cv-lf" transform="translate(74,-1.6) rotate(26) scale(0.66)"/>
+          <use href="#cv-lf" transform="translate(90,-1) rotate(-22) scale(0.52)"/>
+          <use href="#cv-lf" transform="translate(90,-1) rotate(22) scale(0.52)"/>
+          <use href="#cv-lf" transform="translate(102,0) scale(0.5)"/>
+        </g>
+      </g>
+      <g id="cv-sprig">
+        <use href="#cv-half"/>
+        <use href="#cv-half" transform="scale(-1,1)"/>
+        <circle r="2.6" fill="#c9a55c"/>
+        <circle r="5" fill="none" stroke="#c9a55c" stroke-width="0.6"/>
+      </g>
+      <g id="cv-cnr" fill="none" stroke="#c9a55c" stroke-width="1.2">
+        <path d="M2 30 L2 2 L30 2"/><path d="M8 20 Q8 8 20 8"/><circle cx="8" cy="8" r="2" fill="#c9a55c" stroke="none"/>
+      </g>
+    </defs>
+  </svg>
 
-  <!-- 잎 장식 -->
-  <div class="cover-leaf-l">
-    <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-      <path d="M150 380 C60 320 10 200 40 80 C70 -20 180 10 240 80 C300 150 310 280 230 340 C190 370 165 390 150 380Z" fill="#8aab7a"/>
-    </svg>
-  </div>
-  <div class="cover-leaf-r">
-    <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-      <path d="M150 380 C60 320 10 200 40 80 C70 -20 180 10 240 80 C300 150 310 280 230 340 C190 370 165 390 150 380Z" fill="#8aab7a"/>
-    </svg>
-  </div>
+  <!-- 금색 테두리 -->
+  <div class="cover-frame"></div>
+  <div class="cover-corner tl"><svg viewBox="0 0 32 32"><use href="#cv-cnr"/></svg></div>
+  <div class="cover-corner tr"><svg viewBox="0 0 32 32"><use href="#cv-cnr"/></svg></div>
+  <div class="cover-corner bl"><svg viewBox="0 0 32 32"><use href="#cv-cnr"/></svg></div>
+  <div class="cover-corner br"><svg viewBox="0 0 32 32"><use href="#cv-cnr"/></svg></div>
 
   <div class="cover-content">
-    <div class="cover-school">경기도 부천시 원미구 · 부천여자고등학교</div>
-    <div class="cover-title-kr">교내 식물 도감</div>
-    <div class="cover-title-en">Flora on Campus</div>
-    <div class="cover-rule"></div>
-    <div class="cover-badges">
-      <div class="cover-badge">과학탐구실험1</div>
-      <div class="cover-badge">P.L.A.N.T. 프로젝트</div>
-      <div class="cover-badge">2026</div>
+    <svg class="cover-sprig" viewBox="-115 -36 230 72"><use href="#cv-sprig"/></svg>
+    <div class="cover-head">
+      <div class="cover-school">부천여자고등학교</div>
+      <div class="cover-title-kr">식물도감</div>
     </div>
+    <div class="cover-title-en">Flora on Campus</div>
+    <div class="cover-rule"><i></i><b></b><i></i></div>
     <div class="cover-count-wrap">
       <div class="cover-count">89</div>
-      <div class="cover-count-label">SPECIES DOCUMENTED</div>
+      <div class="cover-count-label">SPECIES</div>
     </div>
-    <div class="cover-bottom">
-      부천여자고등학교 1학년 전체 학생 공동 제작
-    </div>
+    <svg class="cover-sprig bottom" viewBox="-115 -36 230 72"><use href="#cv-sprig"/></svg>
   </div>
 </div>
 
@@ -849,21 +870,35 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
       <h2>부천여자고등학교 식물도감을 발간하며</h2>
     </div>
 
-    <div class="preface-body">
-      <p style="margin-bottom:5mm;">1981년 개교한 부천여자고등학교는 1983년부터 지금의 자리에서 40여 년의 역사를 이어오고 있습니다. 그동안 많은 학생들과 교직원들이 함께 학교의 역사와 전통을 만들어 왔습니다. 그리고 그 시간 동안 학교 곳곳의 나무와 식물들도 함께 자라왔습니다.</p>
+    <div class="preface-body" style="white-space:nowrap;">
+      <p style="margin-bottom:5mm;">1981년 문을 연 부천여자고등학교는 1983년부터 이 자리를 지키며 40여 년의 역사를<br>
+이어 왔습니다. 그 시간 동안 수많은 학생과 교직원이 이곳을 오갔지만, 학교의 나무와
+<span class="last">풀꽃은 같은 자리에서 오랜 시간을 함께해 왔습니다.</span></p>
 
-      <p style="margin-bottom:5mm;">이번 식물도감은 학생들이 학교 곳곳에서 자라는 식물을 살펴보고 그 모습을 기록으로 남긴 결과물입니다. 이 도감을 만들기 위해 2026년 3월부터 7월까지 1학년 학생들은 ‘과학탐구실험1’ 수업에서 학교의 식물을 관찰하고 조사했습니다. 이 과정에서 스마트폰과 AI를 활용해 식물의 정보를 찾아보고, 친구들과 함께 89종의 식물을 하나씩 살펴보고 기록하며 한 권의 도감으로 완성했습니다.</p>
+      <p style="margin-bottom:5mm;">이번 식물도감은 1학년 학생들이 학교 곳곳의 식물을 직접 관찰하고 기록하여 엮은<br>
+결과물입니다. 학생들은 1학기 과학탐구실험 시간에 학교 곳곳을 살피며 식물을 관찰하고<br>
+스마트폰으로 촬영했으며, AI의 도움을 받아 식물의 이름을 확인하고 하나씩 기록했습니다.
+<span class="last">그렇게 학생들의 관찰과 기록으로 모인 89종의 식물이 한 권의 도감에 담겼습니다.</span></p>
 
-      <p style="margin-bottom:5mm;">이러한 탐구 활동을 통해 학생들은 식물에 대한 지식뿐만 아니라 스스로 질문하고 탐구하며 친구들과 협력하는 즐거움을 경험했습니다. 또한 늘 익숙하게 생활하던 학교를 세심하게 다시 살펴보면서 우리가 함께 살아가는 자연과 환경의 소중함과 학교와 함께해 온 시간의 의미를 생각해 보는 계기도 되었으리라 생각합니다.</p>
+      <p style="margin-bottom:5mm;">그 과정에서 학생들은 친구들과 함께 학교 곳곳의 식물을 하나씩 살펴보고 이름을<br>
+알아갔습니다. 평소에는 늘 곁에 있어 무심히 지나쳤던 식물들을 가까이에서 관찰하고
+<span class="last">기록하면서, 학교의 나무와 풀꽃을 새롭게 바라보는 시간이기도 했습니다.</span></p>
 
-      <p style="margin-bottom:5mm;">학생들의 탐구를 이끌어 주신 과학 선생님들과 정성을 다해 참여한 학생들에게 진심으로 감사드리며, 이 식물도감이 우리 학교의 소중한 기록으로 오래 남기를 바랍니다.</p>
+      <p style="margin-bottom:5mm;">이렇게 만들어진 도감은 단순한 식물 기록을 넘어 학교의 시간을 담은 기록이기도 합니다.<br>
+학교의 역사와 함께해 온 식물을 오늘의 학생들이 기록했고, 이 기록은 앞으로 이곳에서<br>
+배울 후배들에게 이어질 것입니다. 이 도감이 학교의 지난 시간과 오늘의 우리, 그리고
+<span class="last">미래의 학생들을 잇는 징검다리가 되기를 바랍니다.</span></p>
 
-      <p>앞으로도 부천여자고등학교는 학생들이 일상 속에서 새로운 것을 발견하고 함께 배우는 기회를 넓혀가겠습니다.</p>
+      <p style="margin-bottom:5mm;">이런 뜻깊은 활동을 이끌어 주신 과학 선생님과 적극적으로 참여한 학생들에게 깊이
+<span class="last">감사드립니다.</span></p>
+
+      <p>앞으로도 부천여자고등학교는 학생들이 일상 속에서 새로운 것을 발견하고 함께 배우며
+<span class="last">성장할 수 있는 학교가 되도록 노력하겠습니다.</span></p>
     </div>
 
     <div class="preface-sig">
       <div>2026년 가을</div>
-      <div>부천여자고등학교장 <span style="font-size:12pt; font-weight:700; color:var(--moss); font-family:'Noto Serif KR',serif;">한 정 임</span></div>
+      <div>부천여자고등학교장 <span style="font-size:12pt; font-weight:700; color:var(--moss); font-family:'Noto Serif KR',serif;">한정임</span></div>
     </div>
   </div>
 
@@ -889,9 +924,9 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
       <table class="overview-table">
         <tr><td>교&nbsp;&nbsp;과&nbsp;&nbsp;명</td><td>2026학년 1학년 과학탐구실험1</td></tr>
         <tr><td>참&nbsp;&nbsp;여&nbsp;&nbsp;자</td><td>부천여자고등학교 1학년 학생 전원</td></tr>
-        <tr><td>활동 도구</td><td>학생 스마트폰 앱(구글 렌즈, 구글 지도, 앱 시트 등),<br>AI 도구(제미나이, 클로드 등)</td></tr>
+        <tr><td>활동 도구</td><td style="white-space:nowrap;">학생 스마트폰 앱(구글 렌즈, 구글 지도, 앱 시트 등), AI 도구(제미나이, 클로드 등)</td></tr>
         <tr><td>기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간</td><td>5개월(2026년 3월 ~ 2026년 7월)</td></tr>
-        <tr><td>단계별 활동</td><td>P.L.A.N.T. 프로젝트 수업으로 식물도감 완성</td></tr>
+        <tr><td>단계별 활동</td><td>P.L.A.N.T. 프로젝트 수업의 일환으로 L단계에서 식물도감 완성</td></tr>
       </table>
     </div>
 
@@ -900,15 +935,15 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
       <div class="plant-steps">
         <div class="step-card">
           <div class="step-letter">P</div>
-          <div class="step-name">계획 · Plan</div>
+          <div class="step-name">Plan 계획</div>
           <ul class="step-desc">
-            <li>파초 사진을 함께 보며 등대 질문과 개념 질문 도출</li>
+            <li>파초 사진을 함께 보며<br><span class="one-line">등대 질문과 개념 질문 도출</span></li>
             <li>전국 참여 학교와 공동수집 규칙, 기록 방식(구글 시트 형식 등) 합의</li>
           </ul>
         </div>
         <div class="step-card">
           <div class="step-letter">L</div>
-          <div class="step-name">관찰·기록 · Look</div>
+          <div class="step-name">Look 관찰·기록</div>
           <ul class="step-desc">
             <li>교내 식물을 구글 렌즈로 동정 후 식물도감으로 교차 검증</li>
             <li>식물명·위도와 경도·설명·사진을 구글 시트에 입력(전교생 분담)</li>
@@ -916,7 +951,7 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
         </div>
         <div class="step-card">
           <div class="step-letter">A</div>
-          <div class="step-name">앱 활용 · App</div>
+          <div class="step-name">App 앱 활용</div>
           <ul class="step-desc">
             <li>수합 교사가 전국 데이터를 정제 후 재배포</li>
             <li>앱 시트의 지도·필터·차트·분석 기능으로 지역별·기온별 식물특성을 집계·시각화</li>
@@ -924,7 +959,7 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
         </div>
         <div class="step-card">
           <div class="step-letter">N</div>
-          <div class="step-name">분석 · Navigate</div>
+          <div class="step-name">Navigate 분석</div>
           <ul class="step-desc">
             <li>4단계 탐구 활동지로 앱을 탐색, 비교표 작성</li>
             <li>지역을 기온 순 정렬해 목본 비율 비교 등 앱 기능을 활용해 분석</li>
@@ -932,7 +967,7 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
         </div>
         <div class="step-card">
           <div class="step-letter">T</div>
-          <div class="step-name">적용·전이 · Transfer</div>
+          <div class="step-name">Transfer 적용·전이</div>
           <ul class="step-desc">
             <li>가설·적용</li>
             <li>일반화 과정에서 상관·인과 구분</li>
@@ -946,7 +981,7 @@ ul.step-desc li::before { content: "•"; position: absolute; left: 0; color: va
       <div class="overview-section-title">ㅇ 제작의 의의</div>
       <div class="overview-significance">
         <div class="sig-item"><strong>학생주도학습 </strong>— 스마트폰과 AI를 활용 데이터를 수집하고 해석하는 등 학생의 탐구 능력 및 자기학습 능력 향상</div>
-        <div class="sig-item"><strong>협업 역량 증대 </strong>— 학생들이 각자 식물 데이터를 수집하고 이를 1학년 전체가 협업함으로써 혼자 할 수 있는 일보다 더 많은 일을 달성</div>
+        <div class="sig-item" style="white-space:nowrap; letter-spacing:-0.05em;"><strong>협업 역량 증대 </strong>— 학생들이 각자 식물 데이터를 수집하고 이를 1학년 전체가 협업함으로써 혼자 할 수 있는 일보다 더 많은 일을 달성</div>
         <div class="sig-item"><strong>환경보전의식 향상 </strong>— 우리 학교 내에 어떤 식물이 분포하고 있는지 기록함으로 지역의 다양성 보존에 대한 관심 증대</div>
       </div>
     </div>
